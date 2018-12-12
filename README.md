@@ -16,7 +16,7 @@ public class BaseSort {
         return a.compareTo(b) < 0;
     }
 
-    public static void swap(Comparable[]a, int i, int j) {
+    public static void swap(Comparable[] a, int i, int j) {
         Comparable temp = a[i];
         a[i] = a[j];
         a[j] = temp;
@@ -38,7 +38,7 @@ import java.util.Arrays;
  * @author: yunche
  * @date: 2018/12/12
  */
-public class Selection extends BaseSort{
+public class Selection extends BaseSort {
     public static void sort(Comparable[] a) {
         int N = a.length;
         for (int i = 0; i < N - 1; i++) {
@@ -144,33 +144,40 @@ package com.yunche.sort;
 import java.util.Arrays;
 
 /**
- * @ClassName: Down2UpMerge
- * @Description:
+ * @ClassName: Up2DownMerge
+ * @Description:自顶向下
  * @author: yunche
  * @date: 2018/12/12
  */
-public class Down2UpMerge extends BaseSort{
+public class Up2DownMerge extends BaseSort {
     private static Comparable[] aux;
 
     public static void sort(Comparable[] a) {
-        int N = a.length;
-        aux = new Comparable[N];
-
-        for (int sz = 1; sz < N; sz += sz) {
-            for (int lo = 0; lo < N - sz; lo += sz + sz) {
-                merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
-            }
-        }
+        aux = new Comparable[a.length];
+        sort(a, 0, a.length - 1);
     }
 
-    private static void merge(Comparable[]a, int lo, int mid, int hi) {
+    private static void sort(Comparable[] a, int lo, int hi) {
+        //递归边界
+        if (hi <= lo) {
+            return;
+        }
+        //优化：当hi - lo 小于一定值，可以使用插入排序来提高性能
+        int mid = (lo + hi) >> 1;
+        sort(a, lo, mid);
+        sort(a, mid + 1, hi);
+        //优化：if (a[mid] <= a[mid + 1]) return;对于有序数组来说算法变成了 O(n),对于乱序的话 比较本身也会耗费时间，
+        merge(a, lo, mid, hi);
+    }
+
+    private static void merge(Comparable[] a, int lo, int mid, int hi) {
         int le = lo;
         int ri = mid + 1;
 
         for (int k = lo; k <= hi; k++) {
             if (le > mid) {
                 aux[k] = a[ri++];
-            } else if (ri > hi){
+            } else if (ri > hi) {
                 aux[k] = a[le++];
             } else {
                 if (less(a[ri], a[le])) {
@@ -202,40 +209,33 @@ package com.yunche.sort;
 import java.util.Arrays;
 
 /**
- * @ClassName: Up2DownMerge
- * @Description:自顶向下
+ * @ClassName: Down2UpMerge
+ * @Description:
  * @author: yunche
  * @date: 2018/12/12
  */
-public class Up2DownMerge extends BaseSort {
+public class Down2UpMerge extends BaseSort {
     private static Comparable[] aux;
 
     public static void sort(Comparable[] a) {
-        aux = new Comparable[a.length];
-        sort(a, 0, a.length - 1);
-    }
+        int N = a.length;
+        aux = new Comparable[N];
 
-    private static void sort(Comparable[]a, int lo, int hi) {
-        //递归边界
-        if(hi <= lo) {
-            return;
+        for (int sz = 1; sz < N; sz += sz) {
+            for (int lo = 0; lo < N - sz; lo += sz + sz) {
+                merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
+            }
         }
-        //优化：当hi - lo 小于一定值，可以使用插入排序来提高性能
-        int mid = (lo + hi) >> 1;
-        sort(a, lo, mid);
-        sort(a, mid + 1, hi);
-        //优化：if (a[mid] <= a[mid + 1]) return;对于有序数组来说算法变成了 O(n),对于乱序的话 比较本身也会耗费时间，
-        merge(a, lo, mid, hi);
     }
 
-    private static void merge(Comparable[]a, int lo, int mid, int hi) {
+    private static void merge(Comparable[] a, int lo, int mid, int hi) {
         int le = lo;
         int ri = mid + 1;
 
         for (int k = lo; k <= hi; k++) {
             if (le > mid) {
                 aux[k] = a[ri++];
-            } else if (ri > hi){
+            } else if (ri > hi) {
                 aux[k] = a[le++];
             } else {
                 if (less(a[ri], a[le])) {
