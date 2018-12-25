@@ -1,4 +1,25 @@
-[TOC]
+<!-- GFM-TOC -->
+
+- [Java排序算法代码](#java排序算法代码)
+  - [零、 排序基类](#零-排序基类)
+  - [一、 选择排序](#一-选择排序)
+  - [二、 插入排序](#二-插入排序)
+  - [三、 希尔排序](#三-希尔排序)
+  - [四、 归并排序](#四-归并排序)
+    - [1、 自顶向下](#1-自顶向下)
+    - [2、 自底向上](#2-自底向上)
+  - [五、 快速排序](#五-快速排序)
+    - [1、 基本版](#1-基本版)
+    - [2、 双路切分版](#2-双路切分版)
+    - [3、 三路切分版](#3-三路切分版)
+  - [六、 堆排序](#六-堆排序)
+    - [1、 shiftUp](#1-shiftup)
+    - [2、 shiftDown](#2-shiftdown)
+    - [3、 heaplify](#3-heaplify)
+    - [4、 MaxHeap](#4-maxheap)
+    - [5、 原地堆排序](#5-原地堆排序)
+  - [七、 总结](#七-总结)
+    <!-- GFM-TOC -->
 
 # Java排序算法代码
 
@@ -275,7 +296,7 @@ import java.util.Arrays;
 /**
  * @ClassName: Quick
  * @Description: 快速排序基本版
- * 缺点：含有大量重复元素时，时间复杂度近乎退化为O(N²)
+ * 缺点：含有大量重复元素时，时间复杂度近乎退化为O(N?)
  * @author: yunche
  * @date: 2018/12/15
  */
@@ -295,7 +316,7 @@ public class Quick extends BaseSort {
     }
 
     private static int partition(Comparable[] a, int lo, int hi) {
-        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N²)
+        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N?)
         swap(a, (int) (Math.random() * (hi - lo + 1) + lo), lo);
         //切分时使得a[lo+1..j] < v; a[j+1..i-1] > v;
         //指定j，i初始值使得上面两个集合初始化为空
@@ -350,7 +371,7 @@ public class Quick2Ways extends BaseSort {
     }
 
     private static int partition(Comparable[] a, int lo, int hi) {
-        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N²)
+        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N?)
         swap(a, (int) (Math.random() * (hi - lo + 1) + lo), lo);
         //定义变量i，使得a[lo+1...i-1] < v
         //定义变量j，使得a[j...hi] > v
@@ -406,7 +427,7 @@ public class Quick3Ways extends BaseSort {
             return;
         }
 
-        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N²)
+        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N?)
         swap(a, (int) (Math.random() * (hi - lo + 1) + lo), lo);
         //定义变量lt使得a[lo+1...lt] < v
         //定义变量gt使得a[gt...hi] > v
