@@ -522,9 +522,9 @@ public class MaxHeap<T extends Comparable> {
      */
     public MaxHeap(T[] arr) {
 
-        capacity = arr.length + 1;
+        capacity = arr.length;
         count = arr.length;
-        data = (T[]) new Comparable[capacity];
+        data = (T[]) new Comparable[capacity + 1];
         for (int i = 1; i <= count; i++) {
             data[i] = arr[i - 1];
         }
