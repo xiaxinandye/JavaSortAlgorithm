@@ -316,7 +316,7 @@ public class Quick extends BaseSort {
     }
 
     private static int partition(Comparable[] a, int lo, int hi) {
-        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N?)
+        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N^2)
         swap(a, (int) (Math.random() * (hi - lo + 1) + lo), lo);
         //切分时使得a[lo+1..j] < v; a[j+1..i-1] > v;
         //指定j，i初始值使得上面两个集合初始化为空
@@ -371,7 +371,7 @@ public class Quick2Ways extends BaseSort {
     }
 
     private static int partition(Comparable[] a, int lo, int hi) {
-        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N?)
+        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N^2)
         swap(a, (int) (Math.random() * (hi - lo + 1) + lo), lo);
         //定义变量i，使得a[lo+1...i-1] < v
         //定义变量j，使得a[j...hi] > v
@@ -427,7 +427,7 @@ public class Quick3Ways extends BaseSort {
             return;
         }
 
-        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N?)
+        //优化：随机化标定点，避免当数组近乎有序时，快速排序退化成O(N^2)
         swap(a, (int) (Math.random() * (hi - lo + 1) + lo), lo);
         //定义变量lt使得a[lo+1...lt] < v
         //定义变量gt使得a[gt...hi] > v
